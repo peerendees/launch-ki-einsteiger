@@ -317,12 +317,6 @@
             color: var(--light);
         }
         
-        .order-benefits li:before {
-            content: "✅ ";
-            color: var(--accent);
-            font-weight: bold;
-        }
-        
         /* Footer */
         .footer {
             padding: 3rem 0;
@@ -433,7 +427,7 @@
                     </div>
                     
                     <button id="checkout-button" class="cta-button">
-                        📚 Jetzt kostenlos bestellen
+                        📚 Jetzt kostenlos bezahlen
                     </button>
                 </div>
                 
@@ -508,15 +502,12 @@
                 <h2 class="order-title">Sichere dir dein kostenloses Exemplar</h2>
                 
                 <ul class="order-benefits">
-                    <li>Komplett kostenloses Buch (Wert: 24,95€)</li>
                     <li>Nur 9,95€ für Verpackung und Versand</li>
-                    <li>Schnelle Lieferung direkt zu dir nach Hause</li>
                     <li>Keine versteckten Kosten oder Abos</li>
-                    <li>30 Tage Geld-zurück-Garantie</li>
                 </ul>
                 
                 <button id="checkout-button-2" class="cta-button">
-                    📦 Für 9,95€ bestellen
+                    📦 Für 9,95€ bezahlen
                 </button>
             </div>
         </div>
@@ -531,7 +522,7 @@
                 <a href="mailto:kontakt@berent.ai" class="footer-link">Kontakt</a>
             </div>
             <p class="footer-text">
-                © 2024 BERENT | Beratung + Entwicklung. Alle Rechte vorbehalten.
+                © 2025 BERENT | Beratung + Entwicklung. Alle Rechte vorbehalten.
             </p>
         </div>
     </footer>
@@ -580,7 +571,7 @@
                     alert('Fehler beim Laden der Bezahlseite. Bitte versuche es erneut.');
                 } finally {
                     button.classList.remove('loading');
-                    button.textContent = button.id === 'checkout-button' ? '📚 Jetzt kostenlos bestellen' : '📦 Für 9,95€ bestellen';
+                    button.textContent = button.id === 'checkout-button' ? '📚 Jetzt kostenlos bezahlen' : '📦 Für 9,95€ bezahlen';
                 }
             });
         });
