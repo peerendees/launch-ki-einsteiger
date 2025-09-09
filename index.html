@@ -22,6 +22,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
     
@@ -42,7 +47,7 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, var(--dark) 0%, #2A1810 100%);
             color: var(--light);
             line-height: 1.6;
@@ -74,10 +79,14 @@
         }
         
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+        
+        .logo img {
+            height: 60px;
+            width: auto;
         }
         
         .nav-link {
@@ -399,8 +408,10 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav container">
-            <a href="#" class="logo">BERENT</a>
-            <a href="https://berent.ai" class="nav-link">Zurück zu berent.ai</a>
+            <a href="#" class="logo">
+                <img src="images/logo.png" alt="BERENT Logo" loading="lazy">
+            </a>
+            <a href="https://berent.ai" class="nav-link">Website</a>
         </nav>
     </header>
 
