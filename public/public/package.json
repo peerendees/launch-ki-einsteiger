@@ -1,0 +1,18 @@
+{
+  "name": "launch-ki-einsteiger",
+  "version": "1.0.0",
+  "description": "Landingpage für das kostenlose Buch 'KI für Einsteiger' von Marcus Kunkel",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 3000",
+    "build": "echo 'Static site - no build required'",
+    "preview": "python3 -m http.server 8080"
+  },
+  "keywords": ["KI", "Künstliche Intelligenz", "Buch", "Einsteiger", "Marcus Kunkel", "berent.ai"],
+  "author": "Marcus Kunkel <kontakt@berent.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peerendees/launch-ki-einsteiger.git"
+  }
+}
