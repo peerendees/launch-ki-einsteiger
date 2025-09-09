@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI für Einsteiger - Kostenloses Buch von Marcus Kunkel</title>
+    <meta name="description" content="Erforsche Künstliche Intelligenz anhand praktischer Beispiele. Kostenloses Buch + 9,95€ Versandkosten. Von Marcus Kunkel, berent.ai">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KI für Einsteiger - Kostenloses Buch">
+    <meta property="og:description" content="Erforsche Künstliche Intelligenz anhand praktischer Beispiele">
+    <meta property="og:image" content="./images/ki-einsteiger-cover.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="KI für Einsteiger - Kostenloses Buch">
+    <meta property="twitter:description" content="Erforsche Künstliche Intelligenz anhand praktischer Beispiele">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        :root {
+            --primary: #80331A;
+            --secondary: #9B4D2A;
+            --accent: #D6B366;
+            --dark: #1A1A1A;
+            --light: #F5F5F5;
+            --gray: #9CA3AF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #2A1810 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(214, 179, 102, 0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 0 4rem;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-text {
+            padding-right: 2rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #F4E4BC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .hero-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-price-detail {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        .book-cover {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .book-cover:hover img {
+            transform: perspective(1000px) rotateY(-5deg) scale(1.05);
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            border: none;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(128, 51, 26, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(128, 51, 26, 0.4);
+            background: linear-gradient(135deg, #9B4D2A 0%, var(--primary) 100%);
+        }
+        
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(214, 179, 102, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(214, 179, 102, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-text {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Author Section */
+        .author {
+            padding: 6rem 0;
+        }
+        
+        .author-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .author-image {
+            text-align: center;
+        }
+        
+        .author-image img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .author-bio h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .author-bio p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        /* Order Section */
+        .order {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+        
+        .order-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(214, 179, 102, 0.2);
+        }
+        
+        .order-title {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .order-benefits {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .order-benefits li {
+            padding: 0.5rem 0;
+            color: var(--light);
+        }
+        
+        .order-benefits li:before {
+            content: "✅ ";
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(214, 179, 102, 0.1);
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent);
+        }
+        
+        .footer-text {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                order: 2;
+            }
+            
+            .book-cover {
+                order: 1;
+                margin-bottom: 2rem;
+            }
+            
+            .author-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading and Success States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .loading::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid var(--light);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">BERENT</a>
+            <a href="https://berent.ai" class="nav-link">Zurück zu berent.ai</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">KI für Einsteiger</h1>
+                    <p class="hero-subtitle">
+                        Erforsche Künstliche Intelligenz anhand praktischer Beispiele, 
+                        entdecke die nächste Stufe, um Deine Karriere und Dein persönliches Wachstum zu sichern.
+                    </p>
+                    
+                    <div class="hero-price">KOSTENLOS</div>
+                    <div class="hero-price-detail">
+                        Das Buch ist komplett kostenlos.<br>
+                        Du zahlst nur <strong>9,95€</strong> für Verpackung und Versand.
+                    </div>
+                    
+                    <button id="checkout-button" class="cta-button">
+                        📚 Jetzt kostenlos bestellen
+                    </button>
+                </div>
+                
+                <div class="book-cover">
+                    <img src="./images/ki_für_einsteiger_mockup.png" alt="KI für Einsteiger Buchcover" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Was du lernen wirst</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">KI-Grundlagen verstehen</h3>
+                    <p class="feature-text">
+                        Lerne die fundamentalen Konzepte von Künstlicher Intelligenz in verständlicher Sprache - ohne technischen Jargon.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Praktische Anwendungen</h3>
+                    <p class="feature-text">
+                        Entdecke konkrete Beispiele, wie KI bereits heute deinen Alltag und deine Arbeit verbessern kann.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Zukunft gestalten</h3>
+                    <p class="feature-text">
+                        Bereite dich auf die KI-Revolution vor und nutze sie für dein persönliches und berufliches Wachstum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author Section -->
+    <section class="author">
+        <div class="container">
+            <div class="author-content">
+                <div class="author-image">
+                    <img src="./images/marcus-kunkel.jpg" alt="Marcus Kunkel" loading="lazy">
+                </div>
+                
+                <div class="author-bio">
+                    <h3>Über Marcus Kunkel</h3>
+                    <p>
+                        Marcus Kunkel ist Experte für KI-Transformation und Automatisierung. 
+                        Als Gründer von BERENT | Beratung + Entwicklung hilft er Unternehmen und 
+                        Einzelpersonen dabei, Künstliche Intelligenz erfolgreich zu nutzen.
+                    </p>
+                    <p>
+                        Mit jahrelanger Erfahrung in der Digitalisierung macht er komplexe 
+                        KI-Konzepte für jeden verständlich und anwendbar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section class="order">
+        <div class="container">
+            <div class="order-box">
+                <h2 class="order-title">Sichere dir dein kostenloses Exemplar</h2>
+                
+                <ul class="order-benefits">
+                    <li>Komplett kostenloses Buch (Wert: 24,95€)</li>
+                    <li>Nur 9,95€ für Verpackung und Versand</li>
+                    <li>Schnelle Lieferung direkt zu dir nach Hause</li>
+                    <li>Keine versteckten Kosten oder Abos</li>
+                    <li>30 Tage Geld-zurück-Garantie</li>
+                </ul>
+                
+                <button id="checkout-button-2" class="cta-button">
+                    📦 Für 9,95€ bestellen
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://berent.ai/impressum.html" class="footer-link">Impressum</a>
+                <a href="https://berent.ai/datenschutz.html" class="footer-link">Datenschutz</a>
+                <a href="mailto:kontakt@berent.ai" class="footer-link">Kontakt</a>
+            </div>
+            <p class="footer-text">
+                © 2024 BERENT | Beratung + Entwicklung. Alle Rechte vorbehalten.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Stripe Configuration
+        const stripe = Stripe('pk_test_51234567890123456789012345678901234567890123456789012345678901234567890'); // Replace with your publishable key
+        
+        const checkoutButtons = document.querySelectorAll('#checkout-button, #checkout-button-2');
+        
+        checkoutButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                try {
+                    button.classList.add('loading');
+                    button.textContent = 'Wird geladen...';
+                    
+                    // Create checkout session
+                    const response = await fetch('/create-checkout-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product: 'ki-einsteiger-book',
+                            price: 995, // 9.95 EUR in cents
+                        }),
+                    });
+                    
+                    const session = await response.json();
+                    
+                    if (session.error) {
+                        throw new Error(session.error);
+                    }
+                    
+                    // Redirect to Stripe Checkout
+                    const result = await stripe.redirectToCheckout({
+                        sessionId: session.id,
+                    });
+                    
+                    if (result.error) {
+                        throw new Error(result.error.message);
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Fehler beim Laden der Bezahlseite. Bitte versuche es erneut.');
+                } finally {
+                    button.classList.remove('loading');
+                    button.textContent = button.id === 'checkout-button' ? '📚 Jetzt kostenlos bestellen' : '📦 Für 9,95€ bestellen';
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
