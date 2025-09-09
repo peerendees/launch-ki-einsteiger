@@ -35,6 +35,8 @@
             --primary: #80331A;
             --secondary: #9B4D2A;
             --accent: #D6B366;
+            --brown: #80331A;
+            --beige: #D6B366;
             --dark: #1A1A1A;
             --light: #F5F5F5;
             --gray: #9CA3AF;
@@ -172,7 +174,7 @@
         
         /* CTA Button */
         .cta-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--brown) 0%, var(--secondary) 100%);
             color: var(--light);
             border: none;
             padding: 1.25rem 3rem;
@@ -181,20 +183,31 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(128, 51, 26, 0.3);
+            box-shadow: 0 8px 25px rgba(128, 51, 26, 0.4);
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            border: 2px solid transparent;
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(128, 51, 26, 0.4);
-            background: linear-gradient(135deg, #9B4D2A 0%, var(--primary) 100%);
+            box-shadow: 0 12px 35px rgba(128, 51, 26, 0.6);
+            background: linear-gradient(135deg, #9B4D2A 0%, var(--brown) 100%);
+            border-color: var(--beige);
         }
         
         .cta-button:active {
             transform: translateY(-1px);
+        }
+        
+        /* Gray text utility */
+        .gray-text {
+            color: var(--gray) !important;
+        }
+        
+        .gray-text li {
+            color: var(--gray) !important;
         }
         
         /* Features Section */
@@ -499,7 +512,7 @@
             <div class="order-box">
                 <h2 class="order-title">Sichere dir dein Exemplar</h2>
                 
-                <ul class="order-benefits">
+                <ul class="order-benefits gray-text">
                     <li>Bezahle lediglich 9,95€ für Verpackung und Versand</li>
                     <li>Keine versteckten Kosten oder Abos</li>
                 </ul>
