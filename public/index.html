@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Launch - Neue Produkte von BERENT</title>
-    <meta name="description" content="Entdecke die neuesten Produkte und Innovationen von Marcus Kunkel. Von KI-Büchern bis hin zu digitalen Tools - hier findest du alles vor dem offiziellen Shop-Launch.">
+    <title>Shop - BERENT | KI-Produkte und Tools</title>
+    <meta name="description" content="Entdecke KI-Bücher, Tools und digitale Produkte von Marcus Kunkel. Von Einsteiger-Guides bis hin zu professionellen KI-Lösungen.">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Launch - Neue Produkte von BERENT">
-    <meta property="og:description" content="Entdecke die neuesten Produkte und Innovationen von Marcus Kunkel">
+    <meta property="og:title" content="Shop - BERENT | KI-Produkte und Tools">
+    <meta property="og:description" content="Entdecke KI-Bücher, Tools und digitale Produkte von Marcus Kunkel">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
         
         body {
             font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--dark) 0%, #2A1810 100%);
+            background: var(--dark);
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
@@ -94,6 +94,26 @@
             position: relative;
             padding: 8rem 0 4rem;
             text-align: center;
+            background-image: url('images/hintergrund_neu.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 0;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
         
         .hero-content {
@@ -189,6 +209,25 @@
             color: var(--gray);
             margin-bottom: 1.5rem;
             line-height: 1.6;
+        }
+        
+        .product-rating {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: rgba(214, 179, 102, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .rating-stars {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+        
+        .rating-text {
+            font-size: 0.9rem;
+            color: var(--gray);
         }
         
         .product-price {
@@ -382,10 +421,10 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1 class="hero-title">Launch</h1>
+                <h1 class="hero-title">Shop</h1>
                 <p class="hero-subtitle">
-                    Entdecke die neuesten Produkte und Innovationen von Marcus Kunkel. 
-                    Hier findest du exklusive Vorab-Releases, bevor sie im offiziellen Shop verfügbar werden.
+                    Entdecke KI-Bücher, Tools und digitale Produkte von Marcus Kunkel. 
+                    Praktisches Wissen für Deinen Einstieg in die Welt der Künstlichen Intelligenz.
                 </p>
             </div>
         </div>
@@ -394,7 +433,7 @@
     <!-- Products Section -->
     <section class="products">
         <div class="container">
-            <h2 class="section-title">Aktuelle Launches</h2>
+            <h2 class="section-title">Verfügbare Produkte</h2>
             
             <div class="products-grid">
                 <!-- KI für Einsteiger Buch -->
@@ -409,6 +448,9 @@
                             Erforsche Künstliche Intelligenz anhand praktischer Beispiele, 
                             entdecke die nächste Stufe, um Deine Karriere und Dein persönliches Wachstum zu sichern.
                         </p>
+                        <div id="product-rating" class="product-rating">
+                            <!-- Rating wird hier eingefügt -->
+                        </div>
                         <div class="product-price">
                             <span>9,95 € für Verpackung und Versand</span>
                         </div>
@@ -446,10 +488,10 @@
     <section class="coming-soon">
         <div class="container">
             <div class="coming-soon-content">
-                <h2>Weitere Launches folgen</h2>
+                <h2>Weitere Produkte folgen</h2>
                 <p>
-                    Verpasse keine neuen Produkte, Tools oder Bücher! Trage dich in den Newsletter ein 
-                    und erfahre als Erster von neuen Launches und exklusiven Angeboten.
+                    Verpasse keine neuen Produkte, Tools oder Bücher! Trage Dich in den Newsletter ein 
+                    und erfahre als Erster von neuen Angeboten und exklusiven Inhalten.
                 </p>
                 
                 <form class="newsletter-form" onsubmit="return false;">
@@ -479,6 +521,29 @@
     </footer>
 
     <script>
+        // Load product rating
+        async function loadProductRating() {
+            try {
+                const response = await fetch('./ki-einsteiger/reviews.json');
+                const data = await response.json();
+                const container = document.getElementById('product-rating');
+                
+                if (data.reviews && data.reviews.length > 0) {
+                    const avgRating = (data.reviews.reduce((sum, r) => sum + r.rating, 0) / data.reviews.length).toFixed(1);
+                    const stars = '⭐'.repeat(Math.round(avgRating));
+                    container.innerHTML = `
+                        <div class="rating-stars">${stars}</div>
+                        <div class="rating-text">${avgRating} Sterne (${data.reviews.length} Bewertung${data.reviews.length > 1 ? 'en' : ''})</div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Fehler beim Laden der Bewertungen:', error);
+            }
+        }
+        
+        // Load rating on page load
+        document.addEventListener('DOMContentLoaded', loadProductRating);
+        
         // Newsletter Form Handler
         document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
             e.preventDefault();
