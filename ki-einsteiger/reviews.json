@@ -1,0 +1,13 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "rating": 5,
+      "name": "Beispiel Nutzer",
+      "job": "Unternehmer",
+      "comment": "Ein großartiges Buch für alle, die in die KI-Welt einsteigen möchten. Praxisnah und verständlich geschrieben!",
+      "date": "2025-01-15"
+    }
+  ]
+}
+
