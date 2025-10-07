@@ -454,9 +454,9 @@
                 timestamp: new Date().toISOString()
             };
             
-            // Send to Formspree (you'll need to configure this)
+            // Send to Vercel Function
             try {
-                const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                const response = await fetch('/api/submit-review', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
