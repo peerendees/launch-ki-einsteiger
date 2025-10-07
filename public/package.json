@@ -14,5 +14,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/peerendees/launch-ki-einsteiger.git"
+  },
+  "dependencies": {
+    "resend": "^3.0.0"
   }
 }
