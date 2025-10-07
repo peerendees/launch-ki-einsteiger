@@ -153,6 +153,28 @@
             margin-bottom: 2rem;
         }
         
+        .scroll-hint {
+            margin-top: 2rem;
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
         .book-cover {
             position: relative;
             max-width: 400px;
@@ -537,6 +559,10 @@
                 <button id="checkout-button" class="cta-button">
                     Jetzt bestellen
                 </button>
+                
+                <div class="scroll-hint">
+                    ↓ Mehr erfahren
+                </div>
                 </div>
                 
                 <div class="book-cover">
