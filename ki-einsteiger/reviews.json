@@ -7,6 +7,14 @@
       "job": "Unternehmer",
       "comment": "Ein großartiges Buch für alle, die in die KI-Welt einsteigen möchten. Praxisnah und verständlich geschrieben!",
       "date": "2025-10-07"
+    },
+    {
+      "id": 2,
+      "rating": 5,
+      "name": "Marius K.",
+      "job": "Autor",
+      "comment": "Herausragendes Buch",
+      "date": "2025-10-07"
     }
   ]
 }
