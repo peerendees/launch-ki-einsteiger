@@ -21,8 +21,8 @@ module.exports = async function handler(req, res) {
 
     // Email versenden
     const { data, error } = await resend.emails.send({
-      from: 'Bewertungen <onboarding@resend.dev>', // Test-Modus
-      to: 'kunkel@h-pcn.de', // Test-Modus: Nur an Resend-Anmelde-Email
+      from: 'Bewertungen <office@berent.ai>',
+      to: 'office@berent.ai',
       subject: `Neue Buchbewertung: ${stars} von ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
