@@ -14,6 +14,7 @@ Füge eine neue Bewertung in `ki-einsteiger/reviews.json` ein.
    - **date** — Datum im Format YYYY-MM-DD (Standard: heutiges Datum)
 4. Füge den neuen Eintrag an den **Anfang** des `reviews`-Arrays ein (neueste Bewertung zuerst)
 5. Speichere die Datei (valides JSON, 2-Space-Einrückung, Trailing Newline)
+6. **Kopiere die identische `reviews.json` nach `public/ki-einsteiger/reviews.json`** — Vercel liefert aus `public/` aus (`outputDirectory` in `vercel.json`)
 
 ## Schema
 
