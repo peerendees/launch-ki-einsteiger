@@ -1,6 +1,14 @@
 {
   "reviews": [
     {
+      "id": 3,
+      "rating": 5,
+      "name": "Michael Schorn",
+      "job": "Technischer Leiter in Wasserwirtschaft a.D.",
+      "comment": "Das Buch führt mich Schritt für Schritt in die Welt der KI ein. Ist dabei sehr verständlich geschrieben und mit praktischen Tipps ausgestattet. Es favorisiert keine KI, sondern macht Vorschläge zum Ausprobieren. Die DSGVO und der Schutz des geistigen Eigentums wird dabei mitgenommen. Danke für dieses Buch!",
+      "date": "2026-03-31"
+    },
+    {
       "id": 1,
       "rating": 5,
       "name": "Marc K.",
